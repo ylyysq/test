@@ -1,0 +1,142 @@
+var list = [{
+        "id": "40",
+        "name": "案件信息不全",
+        "number": 6
+    },
+    {
+        "id": "41",
+        "name": "案件信息不一致",
+        "number": 1
+    }
+];
+var total = 0;
+
+list.forEach((item,index)=>{
+    total+=item.number;
+});
+var number = list[0].number;
+var percent = (number/total).toFixed(2);
+var color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                offset: 0,
+                color: '#f9560e'
+            }, {
+                offset: 0.5,
+                color: '#f97923'
+            }, {
+                offset: 1,
+                color: '#f89b37' 
+            }]);
+//数据
+function getData() {
+    return [{
+        value: percent,
+        itemStyle: {
+            normal: {
+                color: color
+            }
+        }
+    }, {
+        value: 1 - percent,
+        itemStyle: {
+            normal: {
+                color: 'transparent'
+            }
+        }
+    }];
+}
+
+option = {
+    backgroundColor: '#040306',
+
+    title: {
+        text: number,
+        x: 'center',
+        y: 'center',
+        textStyle: {
+            color: '#98a0c4',
+            fontWeight: 'bolder',
+            fontSize: 64,
+        }
+    },
+    series: [{
+            type: 'pie',
+            radius: ['39%', '40%'],
+            silent: true,
+            label: {
+                normal: {
+                    show: false,
+                }
+            },
+           
+            data: [{
+                value: 1,
+                itemStyle: {
+                    normal: {
+                        color:color
+                    }
+                }
+            }],
+
+            animation: false
+        },
+        {
+            type: 'pie',
+            radius: ['37%', '36%'],
+            silent: true,
+            label: {
+                normal: {
+                    show: false,
+                }
+            },
+            data: [{
+                value: 1,
+                itemStyle: {
+                    normal: {
+                        color: '#04437A',
+                        shadowBlur: 50,
+                        shadowColor: 'rgba(255,255,255,0.5)'
+                    }
+                }
+            }],
+        
+            animation: false
+        },
+        {
+            type: 'pie',
+            radius: ['51%', '52%'],
+            silent: true,
+            label: {
+                normal: {
+                    show: false,
+                }
+            },
+            data: [{
+                value: 1,
+                itemStyle: {
+                    normal: {
+                        color: '#022E5E',
+                        shadowBlur: 50,
+                        shadowColor: 'rgba(255,255,255,0.5)'
+                    }
+                }
+            }],
+        
+            animation: false
+        },
+
+        {
+            name: 'main',
+            type: 'pie',
+            radius: ['39%', '49%'],
+            label: {
+                normal: {
+                    show: false,
+                }
+            },
+            data: getData(),
+            
+            animationEasingUpdate: 'cubicInOut',
+            animationDurationUpdate: 500
+        }
+    ]
+};
